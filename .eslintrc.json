@@ -26,6 +26,7 @@
         "react/self-closing-comp": "error",
         "object-curly-spacing": [ "error", "always"] ,
         "array-bracket-spacing": [ "error", "always" ],
-        "import/prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+        "react/jsx-props-no-spreading": "off"
     }
 }
