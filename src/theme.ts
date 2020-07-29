@@ -4,7 +4,7 @@ import red from '@material-ui/core/colors/red';
 export default createMuiTheme({
   typography: {
     fontFamily: [
-      'Montserrat',
+      'Open Sans',
       '-apple-system',
       'BlinkMacSystemFont',
       '"Segoe UI"',

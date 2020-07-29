@@ -1,0 +1,2 @@
+export const SPOTIFY_REDIRECT_URL = process.env.REACT_APP_SPOTIFY_REDIRECT_URL;
+export const SPOTIFY_CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
