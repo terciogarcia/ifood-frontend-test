@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { InputAdornment, Input, InputProps } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import useStyles from './styles';
 
-function SearchInput(props: InputProps) {
+function SearchField(props: InputProps) {
   const classes = useStyles();
   return (
     <Input
       type="text"
       className={classes.input}
-      placeholder="Search"
+      placeholder="Buscar por nome"
       disableUnderline
       startAdornment={(
         <InputAdornment position="start">
@@ -21,4 +21,4 @@ function SearchInput(props: InputProps) {
   );
 }
 
-export default SearchInput;
+export default memo(SearchField);

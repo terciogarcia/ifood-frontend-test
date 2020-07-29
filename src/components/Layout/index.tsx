@@ -1,23 +1,20 @@
-import React from 'react';
-import { CssBaseline, AppBar } from '@material-ui/core';
-import SearchInput from 'components/SearchInput';
+import React, { memo } from 'react';
+import { CssBaseline } from '@material-ui/core';
 import useStyles from './styles';
 
-function Layout() {
+export interface LayoutProps {
+  children?: React.ReactNode
+}
+
+function Layout({ children }: LayoutProps) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar
-        className={classes.appBar}
-        elevation={0}
-        position="absolute"
-      >
-        <SearchInput />
-      </AppBar>
+      {children}
     </div>
   );
 }
 
-export default Layout;
+export default memo(Layout);
