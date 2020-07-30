@@ -1,31 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from 'theme';
-import Login from 'pages/Login';
 import Home from 'pages/Home';
 import { getHashParams } from 'helpers/hash';
-import { setAccessToken, getAccessToken } from 'services/storage';
+import { ApplicationState } from 'store/ducks';
+import { useSelector, useDispatch } from 'react-redux';
+import Login from 'pages/Login';
+import { login } from 'store/ducks/auth';
 
 function App() {
-  const [ authenticated, setAuthenticated ] = useState<boolean>();
+  const authenticated = useSelector<ApplicationState, boolean>((state) => state.auth.authenticated);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const storedToken = getAccessToken();
-    if (storedToken) {
-      setAuthenticated(true);
-      return;
-    }
-
     const { access_token: accessToken } = getHashParams();
 
-    if (accessToken) { setAccessToken(accessToken); }
-
-    setAuthenticated(!!accessToken);
-  }, []);
+    if (accessToken) {
+      dispatch(login(accessToken));
+    }
+  }, [ dispatch ]);
 
   return (
     <ThemeProvider theme={theme}>
-      {authenticated === true && <Home />}
+      {authenticated ? <Home /> : <Login />}
     </ThemeProvider>
   );
 }
