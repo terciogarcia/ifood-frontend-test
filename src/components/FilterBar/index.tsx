@@ -22,13 +22,14 @@ function FilterBar() {
       position="absolute"
     >
       <SearchInput />
-      <Button className={classes.filterButton} color="primary" startIcon={<FilterIcon />}>
-        Filtros
-      </Button>
-
-      <Button onClick={handleLogout} color="primary" variant="contained">
-        Sair
-      </Button>
+      <div className={classes.buttonContainer}>
+        <Button className={classes.filterButton} color="primary" startIcon={<FilterIcon />}>
+          Filtros
+        </Button>
+        <Button className={classes.logoutButton} onClick={handleLogout} size="small" variant="text">
+          Sair
+        </Button>
+      </div>
     </AppBar>
   );
 }

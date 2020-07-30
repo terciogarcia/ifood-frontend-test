@@ -1,7 +1,8 @@
-import { getAccessToken } from "services/storage"
-import { ReduxAction } from "interfaces/reduxAction";
+import { getAccessToken } from 'services/storage';
+import { ReduxAction } from 'interfaces/reduxAction';
 import { Dispatch } from 'redux';
-import { Playlist } from "interfaces/playlist";
+import { Playlist } from 'interfaces/playlist';
+import { logout } from './auth';
 
 export enum PlaylistActionTypes {
   FETCH_PLAYLISTS = 'AUTH/FETCH_PLAYLISTS',
@@ -15,35 +16,44 @@ export interface PlaylistState {
 
 const initialState = {
   playlists: [],
-  loading: false
+  loading: false,
 };
 
-export default function (state: PlaylistState = initialState, action: ReduxAction<PlaylistActionTypes>) {
+function reducer(state: PlaylistState = initialState, action: ReduxAction<PlaylistActionTypes>) {
   switch (action.type) {
     case PlaylistActionTypes.FETCH_PLAYLISTS:
-      return { ...state, loading: true }
-      case PlaylistActionTypes.FETCH_PLAYLISTS_SUCCESS:
-        return { ...state, loading: false, playlists: action.payload }
+      return { ...state, loading: true };
+    case PlaylistActionTypes.FETCH_PLAYLISTS_SUCCESS:
+      return { ...state, loading: false, playlists: action.payload };
     default:
       return state;
   }
 }
 
+export default reducer;
+
 export const actionFetchPlaylists = () => ({
-  type: PlaylistActionTypes.FETCH_PLAYLISTS
-})
+  type: PlaylistActionTypes.FETCH_PLAYLISTS,
+});
 
 export const actionFetchPlaylistsSuccess = (playlists: Playlist[]) => ({
   type: PlaylistActionTypes.FETCH_PLAYLISTS_SUCCESS,
-  payload: playlists
-})
+  payload: playlists,
+});
 
 export const fetchPlaylists = () => async (dispatch: Dispatch) => {
-  const data = await fetch('https://api.spotify.com/v1/browse/featured-playlists', {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${getAccessToken()}`
-    },
-  }).then(response => response.json())
-  dispatch(actionFetchPlaylistsSuccess(data.playlists.items))
-}
+  try {
+    const data = await fetch('https://api.spotify.com/v1/browse/featured-playlists', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${getAccessToken()}`,
+      },
+    }).then((response) => response.json());
+
+    if (data.error) throw (data.error);
+
+    dispatch(actionFetchPlaylistsSuccess(data.playlists.items));
+  } catch (error) {
+    if (error.status === 401) { logout()(dispatch); }
+  }
+};

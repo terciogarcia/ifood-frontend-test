@@ -10,4 +10,8 @@ export interface Playlist {
   images: PlaylistImage[],
   name: string,
   uri: string;
+  href: string;
+  external_urls: {
+    spotify: string
+  }
 }
