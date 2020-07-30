@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { Filter } from 'interfaces/filter';
 import FilterField from 'components/FilterField';
 import clsx from 'clsx';
+import Logo from 'assets/svg/Logo';
 import useStyles from './styles';
 
 export interface FilterBarProps {
@@ -33,6 +34,7 @@ function FilterBar({ filters }: FilterBarProps) {
       elevation={0}
       position="absolute"
     >
+      <Logo className={classes.logo} />
       <SearchInput />
       <div className={classes.buttonContainer}>
         <Button

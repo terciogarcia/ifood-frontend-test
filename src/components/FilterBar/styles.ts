@@ -18,6 +18,15 @@ export default makeStyles((theme) => ({
       flexDirection: 'column',
     },
   },
+  logo: {
+    marginRight: theme.spacing(4),
+    height: 40,
+    [theme.breakpoints.down('sm')]: {
+      marginRight: 0,
+      marginBottom: theme.spacing(3),
+      height: 60,
+    },
+  },
   buttonContainer: {
     flexGrow: 1,
     display: 'flex',

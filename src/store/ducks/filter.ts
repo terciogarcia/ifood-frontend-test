@@ -1,6 +1,7 @@
 import { ReduxAction } from 'interfaces/reduxAction';
 import { Filter } from 'interfaces/filter';
 import { Dispatch } from 'redux';
+import { FILTER_FIELD_ENDPOINT } from 'constants/environment';
 
 export enum FilterActionTypes {
   FETCH_FILTERS = 'FILTERS/FETCH_FILTERS',
@@ -40,7 +41,7 @@ export const actionFetchFiltersSuccess = (filters: Filter[]) => ({
 });
 
 export const fetchFilters = () => async (dispatch: Dispatch) => {
-  const data = await fetch('http://www.mocky.io/v2/5a25fade2e0000213aa90776')
+  const data = await fetch(FILTER_FIELD_ENDPOINT)
     .then((response) => response.json());
 
   dispatch(actionFetchFiltersSuccess(data.filters));
