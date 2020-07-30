@@ -4,6 +4,7 @@ export default makeStyles((theme) => ({
   appBar: {
     position: 'relative',
     display: 'flex',
+    flexWrap: 'wrap',
     flexDirection: 'row',
     alignItems: 'center',
     padding: `${theme.spacing(2)}px ${theme.spacing(4)}px`,
@@ -18,12 +19,13 @@ export default makeStyles((theme) => ({
     },
   },
   buttonContainer: {
-    width: '100%',
+    flexGrow: 1,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     [theme.breakpoints.down('sm')]: {
       paddingTop: theme.spacing(2),
+      width: '100%',
     },
   },
   filterButton: {
@@ -31,5 +33,18 @@ export default makeStyles((theme) => ({
   },
   logoutButton: {
     color: theme.palette.grey['700'],
+  },
+  filterContainer: {
+    width: '100%',
+    overflow: 'hidden',
+    height: 0,
+    // transform: 'scaleY(0)',
+    transition: 'all 300ms ease-in-out',
+  },
+  filterContainerVisible: {
+    // transform: 'scaleY(1)',
+    height: 'initial',
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(2),
   },
 }));

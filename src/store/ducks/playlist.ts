@@ -5,8 +5,8 @@ import { Playlist } from 'interfaces/playlist';
 import { logout } from './auth';
 
 export enum PlaylistActionTypes {
-  FETCH_PLAYLISTS = 'AUTH/FETCH_PLAYLISTS',
-  FETCH_PLAYLISTS_SUCCESS = 'AUTH/FETCH_PLAYLISTS_SUCCESS',
+  FETCH_PLAYLISTS = 'PLAYLIST/FETCH_PLAYLISTS',
+  FETCH_PLAYLISTS_SUCCESS = 'PLAYLIST/FETCH_PLAYLISTS_SUCCESS',
 }
 
 export interface PlaylistState {
