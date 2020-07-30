@@ -4,5 +4,6 @@ export default makeStyles({
   root: {
     display: 'flex',
     height: '100vh',
+    paddingTop: 60,
   },
 });
