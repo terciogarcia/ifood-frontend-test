@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import background from 'assets/images/login_background.png';
 
 export default makeStyles((theme) => ({
   container: {
@@ -8,7 +9,13 @@ export default makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    background: theme.palette.background.default,
+    backgroundColor: theme.palette.background.default,
+    backgroundImage: `url('${background}')`,
+    backgroundSize: '40vh auto',
+    backgroundPosition: 'left bottom',
+    backgroundOrigin: 'content-box',
+    backgroundRepeat: 'no-repeat',
+    padding: theme.spacing(6),
   },
   content: {
     display: 'flex',
