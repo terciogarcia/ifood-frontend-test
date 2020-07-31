@@ -2,6 +2,7 @@ import { ReduxAction } from 'interfaces/reduxAction';
 import { Filter } from 'interfaces/filter';
 import { Dispatch } from 'redux';
 import { FILTER_FIELD_ENDPOINT } from 'constants/environment';
+import axios from 'axios';
 
 export enum FilterActionTypes {
   FETCH_FILTERS = 'FILTERS/FETCH_FILTERS',
@@ -41,8 +42,10 @@ export const actionFetchFiltersSuccess = (filters: Filter[]) => ({
 });
 
 export const fetchFilters = () => async (dispatch: Dispatch) => {
-  const data = await fetch(FILTER_FIELD_ENDPOINT)
-    .then((response) => response.json());
-
-  dispatch(actionFetchFiltersSuccess(data.filters));
+  try {
+    const { data } = await axios(FILTER_FIELD_ENDPOINT);
+    dispatch(actionFetchFiltersSuccess(data.filters));
+  } catch (error) {
+    console.log(error);
+  }
 };

@@ -1,15 +1,16 @@
 import React, { memo } from 'react';
 import { Filter, FilterEntityTypes, FilterPrimitiveTypes } from 'interfaces/filter';
 import {
-  Select, FormControl, InputLabel, MenuItem, TextField,
+  Select, FormControl, InputLabel, MenuItem, TextField, SelectProps, TextFieldProps,
 } from '@material-ui/core';
 import useStyles from './styles';
 
 export interface FilterFieldProps {
-  config: Filter
+  config: Filter,
+  onChange: TextFieldProps['onChange'],
 }
 
-function FilterField({ config }: FilterFieldProps) {
+function FilterField({ config, onChange }: FilterFieldProps) {
   const { name, id } = config;
 
   const classes = useStyles();
@@ -19,17 +20,19 @@ function FilterField({ config }: FilterFieldProps) {
       <FormControl className={classes.formControl} variant="outlined" size="small">
         <InputLabel id={`${id}-filter-label`}>{name}</InputLabel>
         <Select
+          name={id}
           labelId={`${id}-filter-label`}
-          id={`${id}-filter-input`}
-          onChange={() => null}
+          id={`${id}-filter`}
+          defaultValue=""
+          onChange={onChange as SelectProps['onChange']}
           label={name}
         >
           <MenuItem value="">
             <em>Selecione</em>
           </MenuItem>
           {
-          config.values.map((value) => (
-            <MenuItem key={value.value} value={value.value}>{value.name}</MenuItem>
+          config.values.map((item) => (
+            <MenuItem key={item.value} value={item.value}>{item.name}</MenuItem>
           ))
         }
         </Select>
@@ -40,8 +43,10 @@ function FilterField({ config }: FilterFieldProps) {
   if (config.validation?.primitiveType === FilterPrimitiveTypes.INTEGER) {
     return (
       <TextField
+        name={id}
         id={`${id}-filter`}
         size="small"
+        onChange={onChange}
         variant="outlined"
         className={classes.formControl}
         label={name}
@@ -53,10 +58,12 @@ function FilterField({ config }: FilterFieldProps) {
   if (config.validation?.entityType === FilterEntityTypes.DATE_TIME) {
     return (
       <TextField
+        name={id}
         id={`${id}-filter`}
         size="small"
         type="datetime-local"
         variant="outlined"
+        onChange={onChange}
         placeholder=""
         className={classes.formControl}
         label={name}

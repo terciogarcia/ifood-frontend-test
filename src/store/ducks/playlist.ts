@@ -2,6 +2,8 @@ import { getAccessToken } from 'services/storage';
 import { ReduxAction } from 'interfaces/reduxAction';
 import { Dispatch } from 'redux';
 import { Playlist } from 'interfaces/playlist';
+import { FilterParams } from 'interfaces/filterParams';
+import axios from 'axios';
 import { logout } from './auth';
 
 export enum PlaylistActionTypes {
@@ -41,19 +43,18 @@ export const actionFetchPlaylistsSuccess = (playlists: Playlist[]) => ({
   payload: playlists,
 });
 
-export const fetchPlaylists = () => async (dispatch: Dispatch) => {
+export const fetchPlaylists = (params: FilterParams = {}) => async (dispatch: Dispatch) => {
   try {
-    const data = await fetch('https://api.spotify.com/v1/browse/featured-playlists', {
+    const { data } = await axios.get('https://api.spotify.com/v1/browse/featured-playlists', {
+      params,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${getAccessToken()}`,
       },
-    }).then((response) => response.json());
-
-    if (data.error) throw (data.error);
+    });
 
     dispatch(actionFetchPlaylistsSuccess(data.playlists.items));
   } catch (error) {
-    if (error.status === 401) { logout()(dispatch); }
+    if (error.error?.status === 401) { logout()(dispatch); }
   }
 };

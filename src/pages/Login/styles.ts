@@ -8,6 +8,7 @@ export default makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
+    background: theme.palette.background.default,
   },
   content: {
     display: 'flex',
