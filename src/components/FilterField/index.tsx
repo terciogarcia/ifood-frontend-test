@@ -21,14 +21,14 @@ function FilterField({ config, onChange }: FilterFieldProps) {
     const { name: attributeName, value } = e.target;
     setError(getFilterError(value as string, config.validation));
     onChange(attributeName as string, value as string);
-  }, [ config ]);
+  }, [ config, onChange ]);
 
   const handleDateChange = useCallback((
     e: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>,
   ) => {
     const { name: attributeName, value } = e.target;
     onChange(attributeName as string, `${value}:00`);
-  }, []);
+  }, [ onChange ]);
 
   const {
     name, id, validation, values,
