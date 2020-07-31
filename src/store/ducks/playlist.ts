@@ -55,6 +55,6 @@ export const fetchPlaylists = (params: FilterParams = {}) => async (dispatch: Di
 
     dispatch(actionFetchPlaylistsSuccess(data.playlists.items));
   } catch (error) {
-    if (error.error?.status === 401) { logout()(dispatch); }
+    if (error.response?.status === 401) { logout()(dispatch); }
   }
 };

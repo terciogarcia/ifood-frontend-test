@@ -2,7 +2,7 @@ import React, {
   memo, useState, useCallback, useEffect,
 } from 'react';
 import SearchInput from 'components/SearchField';
-import { AppBar, Button, TextFieldProps } from '@material-ui/core';
+import { AppBar, Button } from '@material-ui/core';
 import { FilterList as FilterIcon, Close as CloseIcon } from '@material-ui/icons';
 import { logout } from 'store/ducks/auth';
 import { useDispatch } from 'react-redux';
@@ -41,11 +41,7 @@ function FilterBar({
     setDisplayFilters(!displayFilters);
   }, [ displayFilters ]);
 
-  const handleChangeFilterParams = useCallback((
-    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>,
-  ) => {
-    const { name, value } = e.target;
-
+  const handleChangeFilterParams = useCallback((name: string, value: string) => {
     setFilterParams((previous: FilterParams) => ({
       ...previous,
       [name]: value || null,
@@ -83,7 +79,7 @@ function FilterBar({
         {
           filters?.map((filter) => (
             <FilterField
-              onChange={handleChangeFilterParams as TextFieldProps['onChange']}
+              onChange={handleChangeFilterParams}
               key={filter.id}
               config={filter}
             />

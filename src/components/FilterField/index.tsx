@@ -1,37 +1,62 @@
-import React, { memo } from 'react';
+import React, { memo, useState, useCallback } from 'react';
 import { Filter, FilterEntityTypes, FilterPrimitiveTypes } from 'interfaces/filter';
 import {
-  Select, FormControl, InputLabel, MenuItem, TextField, SelectProps, TextFieldProps,
+  Select, FormControl, InputLabel, MenuItem, TextField,
 } from '@material-ui/core';
+import { getFilterError } from 'helpers/validation';
 import useStyles from './styles';
 
 export interface FilterFieldProps {
   config: Filter,
-  onChange: TextFieldProps['onChange'],
+  onChange: (name: string, value: string) => void,
 }
 
 function FilterField({ config, onChange }: FilterFieldProps) {
-  const { name, id } = config;
-
+  const [ error, setError ] = useState<string | null>(null);
   const classes = useStyles();
 
-  if (config.values) {
+  const handleInputChange = useCallback((
+    e: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>,
+  ) => {
+    const { name: attributeName, value } = e.target;
+    setError(getFilterError(value as string, config.validation));
+    onChange(attributeName as string, value as string);
+  }, [ config ]);
+
+  const handleDateChange = useCallback((
+    e: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>,
+  ) => {
+    const { name: attributeName, value } = e.target;
+    onChange(attributeName as string, `${value}:00`);
+  }, []);
+
+  const {
+    name, id, validation, values,
+  } = config;
+
+  const fieldProps = {
+    name: id,
+    error: !!error,
+    id: `${id}-filter`,
+    label: name,
+    helperText: error,
+  };
+
+  if (values) {
     return (
       <FormControl className={classes.formControl} variant="outlined" size="small">
         <InputLabel id={`${id}-filter-label`}>{name}</InputLabel>
         <Select
-          name={id}
           labelId={`${id}-filter-label`}
-          id={`${id}-filter`}
           defaultValue=""
-          onChange={onChange as SelectProps['onChange']}
-          label={name}
+          onChange={handleInputChange}
+          {...fieldProps}
         >
           <MenuItem value="">
             <em>Selecione</em>
           </MenuItem>
           {
-          config.values.map((item) => (
+          values.map((item) => (
             <MenuItem key={item.value} value={item.value}>{item.name}</MenuItem>
           ))
         }
@@ -40,36 +65,31 @@ function FilterField({ config, onChange }: FilterFieldProps) {
     );
   }
 
-  if (config.validation?.primitiveType === FilterPrimitiveTypes.INTEGER) {
+  if (validation?.primitiveType === FilterPrimitiveTypes.INTEGER) {
     return (
       <TextField
-        name={id}
-        id={`${id}-filter`}
         size="small"
-        onChange={onChange}
+        onChange={handleInputChange}
         variant="outlined"
         className={classes.formControl}
-        label={name}
         type="number"
+        {...fieldProps}
       />
     );
   }
 
-  if (config.validation?.entityType === FilterEntityTypes.DATE_TIME) {
+  if (validation?.entityType === FilterEntityTypes.DATE_TIME) {
     return (
       <TextField
-        name={id}
-        id={`${id}-filter`}
         size="small"
-        type="datetime-local"
+        onChange={handleDateChange}
         variant="outlined"
-        onChange={onChange}
-        placeholder=""
+        type="datetime-local"
         className={classes.formControl}
-        label={name}
         InputLabelProps={{
           shrink: true,
         }}
+        {...fieldProps}
       />
     );
   }
