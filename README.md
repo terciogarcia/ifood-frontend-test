@@ -1,29 +1,37 @@
-# iFood Frontend Test
+# Spotifood
 
-Create a web application called Spotifood used to display the preferred playlists from iFood's customers. The web application has only one page:
-* A page that lists the featured playlists at Spotify according to some criteria.
+Part of IFood's Frontend Test as described [here](DESCRIPTION.md).
 
-## Business rules
+# Installing
 
-* The page is composed of two components:
-    * One list of featured playlists
-    * One filter component with API filter fields and one local search text input to filter the playlists by "name".
-    
-* The filter component should be used to filter the elements displayed by the list of featured playlists.
-* The API filter fields and their possible values/type should be mounted by consuming this API **[1. Playlists Filters]** (http://www.mocky.io/v2/5a25fade2e0000213aa90776)
-* The featured playlists to be displayed should be consumed from this API **[2. See the documentation from Spotify]** (https://developer.spotify.com/web-api/get-list-featured-playlists/)
-* Every time the user change any information on the filter component, the list should be refresh accordingly. In case of API filter field change you should recall the playlists API with the filter parameters every time.
-* Considering that we live in a chaotic and fast-changing world, the page should refresh its content every 30 seconds, to see if any information from the Spotify APIs had been changed.
+  - Clone this repo
+  - Run `yarn` or `npm install`
+  - Set the [environment](#environment) variables
 
-## Hints or Constraints
+# Architecture details
+  - [Create React App](https://github.com/facebook/create-react-app) - Simple React boilerplate mantained by Facebook. It is a good option for applications based on a single page like this one, not being necessary features like server-side rendering.
+  - [Eslint](https://eslint.org/) - Tool to standardize code style.
+    - Plugins: eslint-plugin-import, eslint-plugin-jsx-a11y, eslint-plugin-react, eslint-plugin-react-hooks
+    - Configs: eslint-config-airbnb, eslint-config-airbnb-typescript
+  - [TypeScript](https://www.typescriptlang.org/): JavaScript superset that helps to build more scalable and maintainable applications by describind types of variables, objects and functions.
+  - [Material-ui](https://material-ui.com/): A very popular UI framework based on Google's Material Design. As the interface of this project is based on the visual identity of IFood, that was a very helpful tool to reach the expected result.
 
-We will use one API from Spotify Web API. You should follow the Spotify guide in order to create a token needed to access Spotify's API.
-To mount the API filter fields on the filter component, you **must** consume the API that provides the metadata about the fields (Link 1).
-You could use Material UI, Bootstrap or any other toolkit to accelerate your resolution. We will not provide any UI prototype or design.
+# Environment
+You can define the environment variables by creating an `.env.local` at the project root direction. You can also create a specific env file for each env, such as: `.env.test.local`,
+`.env.development.local`, `.env.production.local`.
 
-## Non functional requirements
+| Variable                        | Example                                         | Description                                                 |
+|---------------------------------|-------------------------------------------------|-------------------------------------------------------------|
+| REACT_APP_SPOTIFY_REDIRECT_URL  | http://localhost:3000/                          | URL to be redirected after authenticated by the Spotify API |
+| REACT_APP_SPOTIFY_CLIENT_ID     | 621aa8682f6c482ab164c98fccaed764                | Application identifier at the Spotify API                   |
+| REACT_APP_FILTER_FIELD_ENDPOINT | http://www.mocky.io/v2/5a25fade2e0000213aa90776 | Endpoint that returns filter options to search playlists.   |
 
-As this application will be a worldwide success, it must be prepared to be accessible, responsive, fault tolerant and resilient.
-We **strongly recommend** using React to build the application.
-Also, briefly elaborate on your solution architecture details, choice of patterns and frameworks.
-Fork this repository and submit your code.
+# Scripts
+This projects contains npm scripts that can be executed with `npm run {script-name}` or `yarn {script-name}` as following:
+  - **start** - Run the application for development
+  - **lint** - Perform styleguide checking
+  - **lint:fix** - Perform styleguide checking and fix some errors automatically
+  - **build** - Create a productions build
+  - **eject** - Eject project from create-react-app
+  - **test** - Run tests with jest
+
