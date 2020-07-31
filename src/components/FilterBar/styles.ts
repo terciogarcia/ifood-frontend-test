@@ -8,7 +8,7 @@ export default makeStyles((theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     padding: `${theme.spacing(2)}px ${theme.spacing(4)}px`,
-    backgroundColor: '#F5F3F4',
+    backgroundColor: theme.palette.background.default,
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create([ 'width', 'margin' ], {
       easing: theme.transitions.easing.sharp,

@@ -7,6 +7,7 @@ import { ApplicationState } from 'store/ducks';
 import { useSelector, useDispatch } from 'react-redux';
 import Login from 'pages/Login';
 import { login } from 'store/ducks/auth';
+import Layout from 'components/Layout';
 
 function App() {
   const authenticated = useSelector<ApplicationState, boolean>((state) => state.auth.authenticated);
@@ -22,7 +23,9 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      {authenticated ? <Home /> : <Login />}
+      <Layout>
+        {authenticated ? <Home /> : <Login />}
+      </Layout>
     </ThemeProvider>
   );
 }

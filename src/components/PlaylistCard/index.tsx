@@ -12,7 +12,12 @@ function PlaylistCard({ playlist }: PlaylistCardProps) {
 
   return (
     <Grid item md={3} lg={2} sm={4} xs={6} className={classes.container}>
-      <a target="_blank" rel="noopener noreferrer" href={playlist.external_urls.spotify}>
+      <a
+        className={classes.imageLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        href={playlist.external_urls.spotify}
+      >
         <img className={classes.image} alt={playlist.name} src={playlist.images[0].url} />
       </a>
     </Grid>

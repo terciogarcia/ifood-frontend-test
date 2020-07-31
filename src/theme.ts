@@ -25,5 +25,8 @@ export default createMuiTheme({
       dark: red[800],
       contrastText: '#fff',
     },
+    background: {
+      default: '#F5F3F4',
+    },
   },
 });
