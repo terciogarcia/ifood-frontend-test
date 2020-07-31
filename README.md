@@ -42,6 +42,7 @@ npm start
   - Configs: eslint-config-airbnb, eslint-config-airbnb-typescript
 - [TypeScript](https://www.typescriptlang.org/) is being used in this project for a better code consistency and a better error checking. Typescript enables this project to be scalable and easier maintainable by other software engineers.
 - [Material-ui](https://material-ui.com/) is used as UI framework for this project. Material UI is integrated to the interface based on the visual identity of IFood.
+- [Redux](https://redux.js.org/), a pupular state management library.
 
 ## Environment
 
