@@ -39,7 +39,6 @@ function FilterField({ config, onChange }: FilterFieldProps) {
     error: !!error,
     id: `${id}-filter`,
     label: name,
-    helperText: error,
   };
 
   if (values) {
@@ -68,6 +67,7 @@ function FilterField({ config, onChange }: FilterFieldProps) {
   if (validation?.primitiveType === FilterPrimitiveTypes.INTEGER) {
     return (
       <TextField
+        helperText={error}
         size="small"
         onChange={handleInputChange}
         variant="outlined"
@@ -81,6 +81,7 @@ function FilterField({ config, onChange }: FilterFieldProps) {
   if (validation?.entityType === FilterEntityTypes.DATE_TIME) {
     return (
       <TextField
+        helperText={error}
         size="small"
         onChange={handleDateChange}
         variant="outlined"
