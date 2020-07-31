@@ -2,6 +2,8 @@
 
 IFood's Frontend Test as described [here](DESCRIPTION.md).
 
+Live application: [https://tercio-spotifood.netlify.app/](https://tercio-spotifood.netlify.app/)
+
 ## Setup and Quick Start
 
 1. Clone this repo.
